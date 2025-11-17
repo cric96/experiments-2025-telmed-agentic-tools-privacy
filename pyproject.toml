@@ -1,0 +1,9 @@
+[project]
+name = "experiments-2025-telmed-agentic-tools-privacy"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "langchain-perplexity==1.0.0",
+    "langchain-google-genai==3.0.3"
+]
