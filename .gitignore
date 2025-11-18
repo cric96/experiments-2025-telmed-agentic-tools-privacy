@@ -161,7 +161,3 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
-
-# Project-specific generated files
-generated_attacks.json
-generated_patients.json

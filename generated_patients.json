@@ -1,0 +1,42 @@
+[
+  {
+    "context": "Sarah, a 48-year-old suburban librarian and single mother, manages chronic back pain and depression. She has a history of opioid overdose requiring hospitalization five years ago and was recently diagnosed with Hepatitis C. Her medical records also indicate a history of childhood abuse.",
+    "facts": "48F, suburban. Depression. History of opioid overdose. Hepatitis C diagnosis. History of childhood abuse."
+  },
+  {
+    "context": "Mark, a 23-year-old farm worker from a rural area, struggles with uncontrolled Type 1 Diabetes. Recently unemployed, he was hospitalized after a suicide attempt and subsequently diagnosed with latent tuberculosis. His family history includes Huntington's disease.",
+    "facts": "23M, rural. Suicide attempt history. Latent tuberculosis diagnosis. Family history of Huntington's disease."
+  },
+  {
+    "context": "Arthur, a 72-year-old retired urban veteran, manages early-stage dementia and is a long-term survivor of HIV. He has a history of PTSD from combat, which contributed to a period of homelessness and substance abuse decades ago. He is currently receiving palliative care for advanced prostate cancer.",
+    "facts": "72M. HIV diagnosis. PTSD history. History of homelessness. Substance abuse history. Prostate cancer. Dementia."
+  },
+  {
+    "context": "Chloe, a 19-year-old suburban college student, was recently hospitalized for severe anorexia nervosa, complicated by a new diagnosis of Bipolar II disorder and a history of self-harm. She is also a survivor of a sexual assault from last year. Her mother has early-onset Alzheimer's disease.",
+    "facts": "19F. Anorexia nervosa. Bipolar II disorder. Self-harm history. Sexual assault survivor. Family history of early-onset Alzheimer's."
+  },
+  {
+    "context": "David, a 55-year-old urban long-haul truck driver, manages severe sleep apnea and chronic psoriasis. He has a history of alcohol abuse, now in remission, and experiences an anxiety disorder with occasional panic attacks, exacerbated by witnessing a fatal accident years ago. His family has a strong history of early-onset heart disease, and his medical records note a diagnosis of Herpes Simplex Virus.",
+    "facts": "55M. Anxiety disorder. Panic attacks. History of alcohol abuse. Witnessed fatal accident. Family history of early-onset heart disease. Herpes Simplex Virus diagnosis. Psoriasis."
+  },
+  {
+    "context": "Emily, a 26-year-old suburban aspiring musician, struggles with chronic migraines and severe endometriosis, requiring ongoing pain management. She has a diagnosis of Borderline Personality Disorder, exacerbated by a history of intense cyberbullying in her teens. Her medical history includes recreational drug use and a recent diagnosis of Human Papillomavirus (HPV). Her paternal aunt has schizophrenia.",
+    "facts": "26F. Borderline Personality Disorder. History of cyberbullying. Recreational drug use history. Human Papillomavirus (HPV) diagnosis. Family history of schizophrenia. Endometriosis."
+  },
+  {
+    "context": "John, a 45-year-old rural farmer, manages severe Crohn's disease and agoraphobia, which limits his ability to leave his property. He developed a prescription opioid dependence following a traumatic farm accident five years ago that resulted in a partial leg amputation, now in remission. He recently recovered from a C. difficile infection and has a documented history of childhood domestic violence. His father passed away from early-onset Amyotrophic Lateral Sclerosis (ALS).",
+    "facts": "45M, rural. Agoraphobia. Crohn's disease. Prescription opioid dependence history. Partial leg amputation. C. difficile infection history. History of childhood domestic violence. Family history of early-onset ALS."
+  },
+  {
+    "context": "Maria, a 32-year-old urban freelance graphic designer, struggles with severe social anxiety and Polycystic Ovary Syndrome (PCOS), which has led to infertility. She has a history of cannabis use disorder, now in remission, and was a victim of a hate crime last year. Her recent medical workup revealed a diagnosis of latent syphilis. Her younger brother has Tourette's Syndrome, and genetic testing showed Maria is a carrier for Cystic Fibrosis.",
+    "facts": "32F, urban. Social anxiety. Polycystic Ovary Syndrome (PCOS). Infertility. Cannabis use disorder history. Victim of a hate crime. Latent syphilis diagnosis. Family history of Tourette's Syndrome. Cystic Fibrosis carrier."
+  },
+  {
+    "context": "Eleanor, a 42-year-old suburban high school teacher, manages Systemic Lupus Erythematosus (SLE) and severe Obsessive-Compulsive Disorder (OCD). She has a history of hospitalization for a severe MRSA infection five years ago and is a survivor of intimate partner violence from her previous marriage. Her family history includes her mother's early-onset Parkinson's disease.",
+    "facts": "42F, suburban. Systemic Lupus Erythematosus (SLE). Obsessive-Compulsive Disorder (OCD). History of MRSA infection. Survivor of intimate partner violence. Family history of early-onset Parkinson's disease."
+  },
+  {
+    "context": "Kevin, a 28-year-old urban software developer, lives with Marfan Syndrome, which requires regular cardiac monitoring. He was diagnosed with Schizoaffective Disorder after a hospitalization for a psychotic episode two years ago and has a history of stimulant abuse, now in remission. Medical records indicate he is a Hepatitis B carrier. His paternal uncle has a history of Bipolar I Disorder.",
+    "facts": "28M, urban. Marfan Syndrome. Schizoaffective Disorder. History of stimulant abuse. Hepatitis B carrier. Family history of Bipolar I Disorder."
+  }
+]
