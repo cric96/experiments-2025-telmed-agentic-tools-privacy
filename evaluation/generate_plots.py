@@ -71,14 +71,15 @@ def load_and_process_data(filepath):
 
 def calculate_metrics(df):
     # ASR is simply the mean of is_attacked
-    # Attack@1: Group by (Model, Runner Case, Attack Type, Patient, Question)
-    # If any run in the group is attacked, then Attack@1 = 1, else 0
+    # Attack@1: Measures the percentage of unique attack prompts that result in at least one privacy leakage across the N generations.
+    # This is analogous to Pass@k (with k=N) in code generation, checking if *any* generation leaked.
     
     group_cols = ['model', 'runner_case', 'attack_type', 'patient_context', 'attack_question']
     
     # Attack@1 DataFrame
-    # We aggregate by taking the max of is_attacked (True if any is True)
-    attack_at_1_df = df.groupby(group_cols)['is_attacked'].max().reset_index()
+    # User requested definition: sum of is_attacked divided by N (number of runs)
+    # This calculates the success rate per prompt (analogous to Pass@1 estimator).
+    attack_at_1_df = df.groupby(group_cols)['is_attacked'].mean().reset_index()
     attack_at_1_df.rename(columns={'is_attacked': 'attack_at_1'}, inplace=True)
     
     return df, attack_at_1_df
@@ -221,6 +222,84 @@ def plot_radar(df, category_col, value_col, group_col, title, filename):
     plt.savefig(os.path.join(OUTPUT_DIR, filename))
     plt.close()
 
+def generate_latex_table(df_at1):
+    # Filter for Strong Privacy
+    df_strong = df_at1[df_at1['runner_case'] == 'Strong Privacy'].copy()
+    
+    # Calculate stats per (Model, Attack Type)
+    # We aggregate across the different prompts (patient_context, attack_question)
+    stats = df_strong.groupby(['model', 'attack_type'])['attack_at_1'].agg(['mean', 'std']).reset_index()
+    
+    # Pivot to get models as columns
+    means = stats.pivot(index='attack_type', columns='model', values='mean')
+    stds = stats.pivot(index='attack_type', columns='model', values='std')
+    
+    # Calculate Average row (mean of the attack means, and std of the attack means)
+    avg_means = means.mean()
+    # Calculate std of the means across attacks for the Average row
+    avg_stds = means.std() 
+    
+    # Add Average row to DataFrames
+    means.loc['Average'] = avg_means
+    stds.loc['Average'] = avg_stds
+    
+    # Create formatted table
+    formatted = pd.DataFrame('', index=means.index, columns=means.columns)
+    
+    for idx in means.index:
+        row_means = means.loc[idx]
+        # Best model is the one with the LOWEST Attack@1 score (better privacy)
+        best_model = row_means.idxmin() 
+        
+        for col in means.columns:
+            m = means.loc[idx, col]
+            s = stds.loc[idx, col]
+            # Handle NaN std (single data point)
+            if pd.isna(s): s = 0.0
+            
+            val_str = f"{m:.2f} $\\pm$ {s:.2f}"
+            
+            if col == best_model:
+                val_str = f"\\textbf{{{val_str}}}"
+            
+            formatted.loc[idx, col] = val_str
+            
+    # Generate LaTeX
+    models = formatted.columns.tolist()
+    # Escape underscores in model names for LaTeX
+    models_latex = [m.replace('_', '\\_') for m in models]
+    
+    header = "\\begin{table}\n"
+    header += "\\caption{Attack@1 under Strong Privacy Guidelines. Best model per attack is in bold.}\n"
+    header += "\\label{tab:attack@1_strong_privacy}\n"
+    header += "\\begin{tabular*}{\\linewidth}{@{\\extracolsep{\\fill}}c" + "c" * len(models) + "}\n"
+    header += "\\toprule\n"
+    header += "Attack & " + " & ".join(models_latex) + " \\\\\n"
+    header += "\\midrule\n"
+    
+    body = ""
+    # Attacks
+    for idx in formatted.index:
+        if idx == 'Average': continue
+        row_str = f"{idx} & " + " & ".join(formatted.loc[idx]) + " \\\\\n"
+        body += row_str
+        
+    body += "\\midrule\n"
+    # Average
+    row_str = f"Average & " + " & ".join(formatted.loc['Average']) + " \\\\\n"
+    body += row_str
+    
+    footer = "\\bottomrule\n"
+    footer += "\\end{tabular*}\n"
+    footer += "\\end{table}"
+    
+    latex_content = header + body + footer
+    
+    with open(os.path.join(OUTPUT_DIR, 'attack_at_1_table.tex'), 'w') as f:
+        f.write(latex_content)
+        
+    print(f"Table saved to {os.path.join(OUTPUT_DIR, 'attack_at_1_table.tex')}")
+
 def main():
     filepath = 'evaluation_results_judged.json'
     if not os.path.exists(filepath):
@@ -301,6 +380,9 @@ def main():
         plot_radar(model_df, category_col='attack_type', value_col='attack_at_1', group_col='runner_case',
                    title=f'Attack@1 Radar: {model}',
                    filename=f'radar_at1_runner_attack_{safe_model_name}.pdf')
+
+    print("Generating LaTeX Table...")
+    generate_latex_table(df_at1)
 
     print(f"Analysis complete. Results saved to {OUTPUT_DIR}")
 
